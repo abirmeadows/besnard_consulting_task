@@ -16,10 +16,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   Value.init(
     {
-      body: DataTypes.STRING,
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Value must have a body' },
+          notEmpty: { msg: 'Body must not be empty' },
+        },
+      },
     },
     {
       sequelize,
+      tableName: 'values',
       modelName: 'Value',
     }
   )
