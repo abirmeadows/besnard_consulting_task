@@ -14,9 +14,9 @@ const create = async (req, res) => {
   try {
     const { body } = req.body
 
-    const value = await Principle.create({ body })
+    const principle = await Principle.create({ body })
 
-    res.json(value)
+    res.json(principle)
   } catch (error) {
     console.log(error)
 
@@ -35,11 +35,11 @@ const destroy = async (req, res) => {
   try {
     const { uuid } = req.params
 
-    const value = await Principle.findOne({ where: { uuid } })
+    const principle = await Principle.findOne({ where: { uuid } })
 
-    if (!value) return res.status(404).json({ msg: 'Principle not found' })
+    if (!principle) return res.status(404).json({ msg: 'Principle not found' })
 
-    await value.destroy()
+    await principle.destroy()
 
     res.json({ msg: 'Principle deleted!' })
   } catch (error) {
@@ -48,8 +48,38 @@ const destroy = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    const { body } = req.body
+    const { uuid } = req.params
+
+    const principle = await Principle.findOne({ where: { uuid } })
+
+    if (!principle) return res.status(404).json({ msg: 'Principle not found' })
+
+    principle.body = body
+
+    await principle.save()
+
+    res.json(principle)
+  } catch (error) {
+    console.log(error)
+
+    if (error.name === 'SequelizeValidationError') {
+      let errors = error.errors
+
+      errors = errors.map((item) => item.message)
+
+      return res.status(400).json(errors)
+    }
+
+    res.status(500).json(error)
+  }
+}
+
 module.exports = {
   getAll,
   create,
   destroy,
+  update,
 }
