@@ -6,6 +6,7 @@ const app = express()
 app.use(express.json())
 
 app.use('/value', require('./routes/value'))
+app.use('/principle', require('./routes/principle'))
 
 const PORT = process.env.PORT || 5000
 
