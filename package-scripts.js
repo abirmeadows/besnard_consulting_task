@@ -27,5 +27,20 @@ module.exports = {
         },
       },
     },
+    populate: {
+      script:
+        'npm start migrate.undo.all && npm start migrate && npm start seed',
+      description: 'Undo last migration',
+    },
+    test: {
+      script:
+        'cross-env NODE_ENV=test npm start populate && jest --testTimeout=10000',
+      description: 'Testing the endpoints',
+      watch: {
+        script:
+          'cross-env NODE_ENV=test npm start populate && jest --watch --testTimeout=10000',
+        description: 'Testing the endpoints with reload',
+      },
+    },
   },
 }

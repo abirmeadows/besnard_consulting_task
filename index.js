@@ -1,16 +1,9 @@
-const express = require('express')
 const { sequelize } = require('./models')
-
-const app = express()
-
-app.use(express.json())
-
-app.use('/value', require('./routes/value'))
-app.use('/principle', require('./routes/principle'))
+const server = require('./server')
 
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
   console.log(`Server running on http://localhost:${PORT}`)
 
   await sequelize.authenticate()
