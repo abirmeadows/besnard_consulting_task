@@ -9,8 +9,8 @@ module.exports = {
       script: 'npm run serve --prefix client',
       description: 'VueJS dev server',
       install: {
-        script: 'npm run serve --prefix client',
-        description: 'VueJS dev server',
+        script: 'npm install --prefix client',
+        description: 'Install client side',
       },
     },
     dev: {
