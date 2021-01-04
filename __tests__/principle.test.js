@@ -7,7 +7,7 @@ describe('Principle endpoints', () => {
 
   // Get all
   it('should get all proper principles', async () => {
-    const res = await request(app).get('/principle/all')
+    const res = await request(app).get('/api/principle/all')
 
     const data = res.body
 
@@ -25,7 +25,7 @@ describe('Principle endpoints', () => {
   it('should create principle', async () => {
     const body = 'new principle'
 
-    const res = await request(app).post('/principle').send({ body })
+    const res = await request(app).post('/api/principle').send({ body })
 
     const data = res.body
 
@@ -39,7 +39,7 @@ describe('Principle endpoints', () => {
     uuid = data.uuid
   })
   it('should not create if body is empty', async () => {
-    const res = await request(app).post('/principle').send({ body: '' })
+    const res = await request(app).post('/api/principle').send({ body: '' })
 
     const data = res.body
 
@@ -50,7 +50,7 @@ describe('Principle endpoints', () => {
   it('should update principle', async () => {
     const body = 'updated principle'
 
-    const res = await request(app).put(`/principle/${uuid}`).send({ body })
+    const res = await request(app).put(`/api/principle/${uuid}`).send({ body })
 
     const data = res.body
 
@@ -62,7 +62,9 @@ describe('Principle endpoints', () => {
     expect(data).toHaveProperty('updatedAt')
   })
   it('should not update if body is empty', async () => {
-    const res = await request(app).put(`/principle/${uuid}`).send({ body: '' })
+    const res = await request(app)
+      .put(`/api/principle/${uuid}`)
+      .send({ body: '' })
 
     const data = res.body
 
@@ -71,7 +73,7 @@ describe('Principle endpoints', () => {
   })
   it('should not update principle if principle is not found', async () => {
     const res = await request(app)
-      .put('/principle/123456')
+      .put('/api/principle/123456')
       .send({ body: 'updated principle' })
 
     const data = res.body
@@ -81,7 +83,7 @@ describe('Principle endpoints', () => {
   })
   // Delete
   it('should delete principle', async () => {
-    const res = await request(app).delete(`/principle/${uuid}`)
+    const res = await request(app).delete(`/api/principle/${uuid}`)
 
     const data = res.body
 
@@ -89,7 +91,7 @@ describe('Principle endpoints', () => {
     expect(data).toHaveProperty('msg')
   })
   it('should not delete principle if principle is not found', async () => {
-    const res = await request(app).delete('/principle/123456')
+    const res = await request(app).delete('/api/principle/123456')
 
     const data = res.body
 

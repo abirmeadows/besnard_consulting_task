@@ -5,6 +5,14 @@ module.exports = {
       script: 'nodemon index.js',
       description: 'Express server with live reload which also connects to DB',
     },
+    client: {
+      script: 'npm run serve --prefix client',
+      description: 'VueJS dev server',
+    },
+    dev: {
+      script: 'concurrently "npm start server" "npm start client"',
+      description: 'Runs both server and client together',
+    },
     migrate: {
       script: 'sequelize db:migrate',
       description: 'Creates tables in the DB for the exisitng models',
@@ -30,7 +38,7 @@ module.exports = {
     populate: {
       script:
         'npm start migrate.undo.all && npm start migrate && npm start seed',
-      description: 'Undo last migration',
+      description: 'Undo migrations, migrate and seed',
     },
     test: {
       script:

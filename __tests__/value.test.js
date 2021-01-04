@@ -7,7 +7,7 @@ describe('Value endpoints', () => {
 
   // Get all
   it('should get all proper values', async () => {
-    const res = await request(app).get('/value/all')
+    const res = await request(app).get('/api/value/all')
 
     const data = res.body
 
@@ -25,7 +25,7 @@ describe('Value endpoints', () => {
   it('should create value', async () => {
     const body = 'new value'
 
-    const res = await request(app).post('/value').send({ body })
+    const res = await request(app).post('/api/value').send({ body })
 
     const data = res.body
 
@@ -39,7 +39,7 @@ describe('Value endpoints', () => {
     uuid = data.uuid
   })
   it('should not create if body is empty', async () => {
-    const res = await request(app).post('/value').send({ body: '' })
+    const res = await request(app).post('/api/value').send({ body: '' })
 
     const data = res.body
 
@@ -50,7 +50,7 @@ describe('Value endpoints', () => {
   it('should update value', async () => {
     const body = 'updated value'
 
-    const res = await request(app).put(`/value/${uuid}`).send({ body })
+    const res = await request(app).put(`/api/value/${uuid}`).send({ body })
 
     const data = res.body
 
@@ -62,7 +62,7 @@ describe('Value endpoints', () => {
     expect(data).toHaveProperty('updatedAt')
   })
   it('should not update if body is empty', async () => {
-    const res = await request(app).put(`/value/${uuid}`).send({ body: '' })
+    const res = await request(app).put(`/api/value/${uuid}`).send({ body: '' })
 
     const data = res.body
 
@@ -71,7 +71,7 @@ describe('Value endpoints', () => {
   })
   it('should not update value if value is not found', async () => {
     const res = await request(app)
-      .put('/value/123456')
+      .put('/api/value/123456')
       .send({ body: 'updated value' })
 
     const data = res.body
@@ -81,7 +81,7 @@ describe('Value endpoints', () => {
   })
   // Delete
   it('should delete value', async () => {
-    const res = await request(app).delete(`/value/${uuid}`)
+    const res = await request(app).delete(`/api/value/${uuid}`)
 
     const data = res.body
 
@@ -89,7 +89,7 @@ describe('Value endpoints', () => {
     expect(data).toHaveProperty('msg')
   })
   it('should not delete value if value is not found', async () => {
-    const res = await request(app).delete('/value/123456')
+    const res = await request(app).delete('/api/value/123456')
 
     const data = res.body
 

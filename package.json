@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
     "jest": "^26.6.3",
     "nodemon": "^2.0.6",
