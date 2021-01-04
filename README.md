@@ -12,13 +12,39 @@ To install the packages and specially NPS, run
 npm install
 ```
 
-Once you have NPS installed, you have access to all the other scripts.
-Now you can install the client side as well.
+Then cd into the client directory
+to install the client side
 
 ```
-npm start client.install
+npm install
 ```
+
+You need to cd back after this for the rest of the steps.
 
 ### Database
 
-The app needs sqlite files to function. Make new files named db.sqlite3 and test.sqlite3 (for testing) in the root directory.
+Run the migrations and seeds all at once with
+
+```
+npm start populate
+```
+
+Or, you can run the migrations and seeds yourself. More about the scripts in the package-scripts.js file
+
+### Running the dev server
+
+You can run the frontend and backend together with
+
+```
+npm start dev
+```
+
+Or start server and client sides separately. More about the scripts in the package-scripts.js file
+
+### Testing
+
+You can test the endpoints of the app with
+
+```
+npm start test.watch
+```
