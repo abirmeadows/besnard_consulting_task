@@ -2,7 +2,7 @@ const { Principle } = require('../models')
 
 const getAll = async (req, res) => {
   try {
-    const values = await Principle.findAll()
+    const values = await Principle.findAll({ order: [['updatedAt', 'DESC']] })
 
     res.json(values)
   } catch (error) {
