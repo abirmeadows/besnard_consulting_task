@@ -8,7 +8,7 @@
       </div>
       <div class="column">
         <h2 class="subhead">Principles</h2>
-        <Values />
+        <Principles />
       </div>
     </div>
   </div>
@@ -17,16 +17,22 @@
 <script>
 import { mapActions } from "vuex";
 import Values from "@/components/value/Values";
+import Principles from "@/components/principle/Principles";
 export default {
   name: "App",
   components: {
     Values,
+    Principles,
   },
   mounted() {
     this.fetchValues();
+    this.fetchPrinciples();
   },
   methods: {
-    ...mapActions({ fetchValues: "value/fetchAll" }),
+    ...mapActions({
+      fetchValues: "value/fetchAll",
+      fetchPrinciples: "principle/fetchAll",
+    }),
   },
 };
 </script>
@@ -79,10 +85,20 @@ input:focus,
 button:focus {
   outline: none;
 }
+input:disabled,
+button:disabled {
+  opacity: 0.5;
+}
 input[type="text"] {
   width: 100%;
 }
 input[type="submit"] {
   cursor: pointer;
+}
+
+.error {
+  font-weight: bold;
+  color: var(--danger);
+  margin: 0.5rem 0;
 }
 </style>

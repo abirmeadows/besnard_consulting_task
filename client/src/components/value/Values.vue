@@ -20,7 +20,10 @@ export default {
     AddValue,
   },
   computed: {
-    ...mapGetters({ loader: "value/loader", values: "value/values" }),
+    ...mapGetters({
+      loader: "value/loader",
+      values: "value/values",
+    }),
   },
 };
 </script>

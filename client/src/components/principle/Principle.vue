@@ -1,7 +1,7 @@
 <template>
-  <div class="value">
+  <div class="principle">
     <div class="wrapper">
-      <p>{{ value.body }}</p>
+      <p>{{ principle.body }}</p>
       <div class="btns">
         <button v-if="edit" class="edit" @click="toggleEdit(false)">
           Cancel
@@ -12,20 +12,24 @@
         </button>
       </div>
     </div>
-    <UpdateValue v-if="edit" :prevBody="value.body" :valueUuid="value.uuid" />
+    <UpdatePrinciple
+      v-if="edit"
+      :prevBody="principle.body"
+      :principleUuid="principle.uuid"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import UpdateValue from "@/components/value/UpdateValue";
+import UpdatePrinciple from "@/components/principle/UpdatePrinciple";
 export default {
-  name: "Value",
+  name: "Principle",
   components: {
-    UpdateValue,
+    UpdatePrinciple,
   },
   props: {
-    value: {
+    principle: {
       type: Object,
       default: () => ({}),
     },
@@ -35,14 +39,14 @@ export default {
       edit: false,
     };
   },
-  computed: { ...mapGetters({ loader: "value/loader" }) },
+  computed: { ...mapGetters({ loader: "principle/loader" }) },
   methods: {
     ...mapActions({
-      destroyOne: "value/destroyOne",
-      clearErrors: "value/clearErrors",
+      destroyOne: "principle/destroyOne",
+      clearErrors: "principle/clearErrors",
     }),
     onDelete() {
-      this.destroyOne({ uuid: this.value.uuid });
+      this.destroyOne({ uuid: this.principle.uuid });
     },
     toggleEdit(value) {
       this.edit = value;
@@ -53,7 +57,7 @@ export default {
 </script>
 
 <style scoped>
-.value {
+.principle {
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
   margin-top: 1.5rem;
   padding: 1.5rem;

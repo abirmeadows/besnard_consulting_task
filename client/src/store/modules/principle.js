@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 const state = {
-  values: [],
+  principles: [],
   loader: {},
   errors: null,
 }
 
 const getters = {
-  values: (state) => state.values,
+  principles: (state) => state.principles,
   loader: (state) => state.loader,
   errors: (state) => state.errors,
 }
@@ -20,27 +20,31 @@ const mutations = {
     state.errors = null
   },
   loaded(state, val) {
-    state.values = val
+    state.principles = val
     state.loader.fetch = false
   },
   added(state, val) {
-    state.values = [val, ...state.values]
+    state.principles = [val, ...state.principles]
     state.loader.add = false
   },
   updated(state, val) {
-    let tempValues = [...state.values]
+    let tempPrinciples = [...state.principles]
 
-    const index = tempValues.findIndex((value) => value.uuid === val.uuid)
+    const index = tempPrinciples.findIndex(
+      (principle) => principle.uuid === val.uuid
+    )
 
-    tempValues[index].body = val.body
-    tempValues[index].updatedAt = val.updatedAt
+    tempPrinciples[index].body = val.body
+    tempPrinciples[index].updatedAt = val.updatedAt
 
-    state.values = tempValues
+    state.principles = tempPrinciples
 
     state.loader.update = false
   },
   destroyed(state, val) {
-    state.values = [...state.values].filter((value) => value.uuid !== val)
+    state.principles = [...state.principles].filter(
+      (principle) => principle.uuid !== val
+    )
     state.loader.destroy = false
   },
   setErrors(state, val) {
@@ -57,7 +61,7 @@ const actions = {
     try {
       commit('setLoader', { key: 'fetch', val: true })
 
-      const res = await axios.get('/api/value/all')
+      const res = await axios.get('/api/principle/all')
 
       commit('loaded', res.data)
     } catch (error) {
@@ -72,7 +76,7 @@ const actions = {
 
       commit('setLoader', { key: 'add', val: true })
 
-      const res = await axios.post('/api/value', { body })
+      const res = await axios.post('/api/principle', { body })
 
       commit('added', res.data)
 
@@ -89,7 +93,7 @@ const actions = {
 
       commit('setLoader', { key: 'update', val: true })
 
-      const res = await axios.put(`/api/value/${uuid}`, { body })
+      const res = await axios.put(`/api/principle/${uuid}`, { body })
 
       commit('updated', res.data)
     } catch (error) {
@@ -104,7 +108,7 @@ const actions = {
 
       commit('setLoader', { key: 'destroy', val: true })
 
-      await axios.delete(`/api/value/${uuid}`)
+      await axios.delete(`/api/principle/${uuid}`)
 
       commit('destroyed', uuid)
     } catch (error) {

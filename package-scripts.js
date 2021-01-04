@@ -1,6 +1,7 @@
 module.exports = {
   scripts: {
     default: 'node index.js',
+    install: 'npm install && npm install --prefix client',
     server: {
       script: 'nodemon index.js',
       description: 'Express server with live reload which also connects to DB',

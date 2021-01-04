@@ -2,6 +2,11 @@
   <form @submit.prevent="onSubmit">
     <div class="input-label">
       <label for="value-input-update">Update value</label>
+      <template v-if="errors && errors.update">
+        <p class="error" v-for="(error, index) in errors.update" :key="index">
+          {{ error }}
+        </p>
+      </template>
       <input
         v-model="body"
         type="text"
@@ -33,7 +38,9 @@ export default {
       body: "",
     };
   },
-  computed: { ...mapGetters({ loader: "value/loader" }) },
+  computed: {
+    ...mapGetters({ loader: "value/loader", errors: "value/errors" }),
+  },
   mounted() {
     this.body = this.prevBody;
   },

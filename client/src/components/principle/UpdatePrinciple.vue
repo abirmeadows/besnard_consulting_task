@@ -1,20 +1,20 @@
 <template>
   <form @submit.prevent="onSubmit">
     <div class="input-label">
-      <label for="value-input">Add value</label>
-      <template v-if="errors && errors.add">
-        <p class="error" v-for="(error, index) in errors.add" :key="index">
+      <label for="principle-input-update">Update principle</label>
+      <template v-if="errors && errors.update">
+        <p class="error" v-for="(error, index) in errors.update" :key="index">
           {{ error }}
         </p>
       </template>
       <input
         v-model="body"
         type="text"
-        placeholder="New value..."
-        id="value-input"
+        placeholder="Modified principle..."
+        id="principle-input-update"
       />
     </div>
-    <input type="submit" value="Add" :disabled="loader.add" />
+    <input type="submit" value="Update" :disabled="loader.update" />
   </form>
 </template>
 
@@ -22,22 +22,35 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "AddValue",
+  name: "UpdatePrinciple",
+  props: {
+    prevBody: {
+      type: String,
+      default: "",
+    },
+    principleUuid: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       body: "",
     };
   },
   computed: {
-    ...mapGetters({ loader: "value/loader", errors: "value/errors" }),
+    ...mapGetters({ loader: "principle/loader", errors: "principle/errors" }),
+  },
+  mounted() {
+    this.body = this.prevBody;
   },
   methods: {
-    ...mapActions({ addOne: "value/addOne" }),
+    ...mapActions({ updateOne: "principle/updateOne" }),
     onSubmit() {
-      this.addOne({ body: this.body, clearForm: this.clearForm });
-    },
-    clearForm() {
-      this.body = "";
+      this.updateOne({
+        body: this.body,
+        uuid: this.principleUuid,
+      });
     },
   },
 };
@@ -47,7 +60,7 @@ export default {
 form {
   display: flex;
   align-items: flex-end;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 .input-label {
   flex: 1;

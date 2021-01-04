@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit">
     <div class="input-label">
-      <label for="value-input">Add value</label>
+      <label for="principle-input">Add principle</label>
       <template v-if="errors && errors.add">
         <p class="error" v-for="(error, index) in errors.add" :key="index">
           {{ error }}
@@ -10,8 +10,8 @@
       <input
         v-model="body"
         type="text"
-        placeholder="New value..."
-        id="value-input"
+        placeholder="New principle..."
+        id="principle-input"
       />
     </div>
     <input type="submit" value="Add" :disabled="loader.add" />
@@ -22,17 +22,17 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "AddValue",
+  name: "AddPrinciple",
   data() {
     return {
       body: "",
     };
   },
   computed: {
-    ...mapGetters({ loader: "value/loader", errors: "value/errors" }),
+    ...mapGetters({ loader: "principle/loader", errors: "principle/errors" }),
   },
   methods: {
-    ...mapActions({ addOne: "value/addOne" }),
+    ...mapActions({ addOne: "principle/addOne" }),
     onSubmit() {
       this.addOne({ body: this.body, clearForm: this.clearForm });
     },
