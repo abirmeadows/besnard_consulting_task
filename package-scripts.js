@@ -1,7 +1,6 @@
 module.exports = {
   scripts: {
     default: 'node index.js',
-    install: 'npm install && npm install --prefix client',
     server: {
       script: 'nodemon index.js',
       description: 'Express server with live reload which also connects to DB',
@@ -9,6 +8,10 @@ module.exports = {
     client: {
       script: 'npm run serve --prefix client',
       description: 'VueJS dev server',
+      install: {
+        script: 'npm run serve --prefix client',
+        description: 'VueJS dev server',
+      },
     },
     dev: {
       script: 'concurrently "npm start server" "npm start client"',
