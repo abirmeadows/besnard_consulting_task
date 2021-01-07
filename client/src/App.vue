@@ -72,6 +72,7 @@ export default {
   margin-bottom: 2rem;
 }
 input,
+textarea,
 button {
   font-size: 1rem;
   display: block;
@@ -89,8 +90,12 @@ input:disabled,
 button:disabled {
   opacity: 0.5;
 }
-input[type="text"] {
+input[type="text"],
+textarea {
   width: 100%;
+}
+textarea {
+  resize: none;
 }
 input[type="submit"] {
   cursor: pointer;

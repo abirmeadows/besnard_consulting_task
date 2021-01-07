@@ -1,6 +1,13 @@
 <template>
   <div>
-    <AddPrinciple />
+    <BodyForm
+      :form-type="'add'"
+      :data-type="'principle'"
+      :prev-body="''"
+      :errors="errors"
+      :loader="loader"
+      :submit-func="addOne"
+    />
     <div v-if="loader.fetch">Getting principles...</div>
     <div v-else>
       <Principle
@@ -13,21 +20,25 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Principle from "@/components/principle/Principle";
-import AddPrinciple from "@/components/principle/AddPrinciple";
+import BodyForm from "@/components/utilities/BodyForm";
 
 export default {
   name: "Principles",
   components: {
     Principle,
-    AddPrinciple,
+    BodyForm,
   },
   computed: {
     ...mapGetters({
       loader: "principle/loader",
+      errors: "principle/errors",
       principles: "principle/principles",
     }),
+  },
+  methods: {
+    ...mapActions({ addOne: "principle/addOne" }),
   },
 };
 </script>

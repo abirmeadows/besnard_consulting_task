@@ -7,22 +7,32 @@
           Cancel
         </button>
         <button v-else class="edit" @click="toggleEdit(true)">Edit</button>
-        <button class="delete" @click="onDelete" :disabled="loader.destroy">
-          Delete
-        </button>
+        <DeleteBtn :loader="loader" :uuid="value.uuid" :del-func="destroyOne" />
       </div>
     </div>
-    <UpdateValue v-if="edit" :prevBody="value.body" :valueUuid="value.uuid" />
+    <BodyForm
+      v-if="edit"
+      :form-type="'update'"
+      :data-type="'value'"
+      :prev-body="value.body"
+      :prev-uuid="value.uuid"
+      :loader="loader"
+      :errors="errors"
+      :submit-func="updateOne"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import UpdateValue from "@/components/value/UpdateValue";
+import BodyForm from "@/components/utilities/BodyForm";
+import DeleteBtn from "@/components/utilities/DeleteBtn";
+
 export default {
   name: "Value",
   components: {
-    UpdateValue,
+    BodyForm,
+    DeleteBtn,
   },
   props: {
     value: {
@@ -35,15 +45,15 @@ export default {
       edit: false,
     };
   },
-  computed: { ...mapGetters({ loader: "value/loader" }) },
+  computed: {
+    ...mapGetters({ loader: "value/loader", errors: "value/errors" }),
+  },
   methods: {
     ...mapActions({
+      updateOne: "value/updateOne",
       destroyOne: "value/destroyOne",
       clearErrors: "value/clearErrors",
     }),
-    onDelete() {
-      this.destroyOne({ uuid: this.value.uuid });
-    },
     toggleEdit(value) {
       this.edit = value;
       this.clearErrors();
