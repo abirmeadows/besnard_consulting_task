@@ -12,6 +12,10 @@ module.exports = {
         script: 'npm install --prefix client',
         description: 'Install client side',
       },
+      test: {
+        script: 'npm run test --prefix client',
+        description: 'Test client side',
+      },
     },
     dev: {
       script: 'concurrently "npm start server" "npm start client"',

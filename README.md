@@ -48,3 +48,9 @@ You can test the endpoints of the app with
 ```
 npm start test.watch
 ```
+
+and the client side with
+
+```
+npm start client.test
+```
