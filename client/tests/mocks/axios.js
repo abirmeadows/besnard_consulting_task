@@ -55,7 +55,7 @@ export default function mockedAxios() {
     switch (url) {
       case '/api/value/1':
         return Promise.resolve()
-      case '/api/principle/1':
+      case '/api/principle/4':
         return Promise.resolve()
       default:
         return Promise.reject(new Error('not found'))

@@ -21,12 +21,14 @@ export default function createStoreConfig() {
         state: valueState,
         actions: value.actions,
         mutations: value.mutations,
+        getters: value.getters,
       },
       principle: {
         namespaced: true,
         state: principleState,
         actions: principle.actions,
         mutations: principle.mutations,
+        getters: principle.getters,
       },
     },
   }

@@ -78,11 +78,11 @@ describe('Principles', () => {
   })
   it('should delete one', async () => {
     await store.dispatch('principle/destroyOne', {
-      uuid: '1',
+      uuid: '4',
     })
 
     expect(
-      store.state.principle.principles.some(({ uuid }) => uuid === '1')
+      store.state.principle.principles.some(({ uuid }) => uuid === '4')
     ).toBe(false)
   })
 })
